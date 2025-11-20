@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kondr Padel Live</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0f172a">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Screenshot -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'neon-blue': '#3b82f6',
+            'neon-purple': '#8b5cf6',
+            'dark-bg': '#0f172a',
+            'glass': 'rgba(255, 255, 255, 0.05)',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'flash-red': 'flashRed 1s infinite',
+          },
+          keyframes: {
+              flashRed: {
+                  '0%, 100%': { borderColor: 'rgba(220, 38, 38, 0.5)', backgroundColor: 'rgba(220, 38, 38, 0.1)' },
+                  '50%': { borderColor: 'rgba(220, 38, 38, 1)', backgroundColor: 'rgba(220, 38, 38, 0.3)' },
+              }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; background-color: #0f172a; color: #e2e8f0; }
+    .hide-scroll::-webkit-scrollbar { display: none; } .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+    .tap-effect:active { transform: scale(0.95); }
+    .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .digital-font { font-variant-numeric: tabular-nums; letter-spacing: -1px; font-weight: 700; }
+    .bg-gradient-animate { background: linear-gradient(-45deg, #0f172a, #1e1b4b, #172554, #0f172a); background-size: 400% 400%; animation: gradientBG 15s ease infinite; }
+    @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    #toast { visibility: hidden; opacity: 0; transform: translate(-50%, 20px); transition: all 0.3s; }
+    #toast.show { visibility: visible; opacity: 1; transform: translate(-50%, 0); }
+  </style>
+</head>
+<body class="bg-gradient-animate h-screen flex flex-col overflow-hidden relative text-white">
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-24 left-1/2 glass-panel text-white px-6 py-3 rounded-full shadow-2xl z-[80] font-medium text-sm text-center whitespace-nowrap pointer-events-none flex items-center gap-2 border-neon-blue/30">
+    <span id="toast-msg">Notification</span>
+  </div>
+
+  <!-- Rules Modal (RESTORED) -->
+  <div id="rules-modal" class="fixed inset-0 bg-black/80 z-[90] hidden flex items-center justify-center p-4 backdrop-blur-md">
+    <div class="glass-panel bg-slate-900 rounded-2xl shadow-2xl p-6 w-full max-w-sm border border-white/10 relative">
+      <button id="close-rules" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-bold">✕</button>
+      <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-full bg-neon-blue/20 flex items-center justify-center text-xl">📋</div>
+          <div><h3 class="text-lg font-bold text-white leading-none">Правила</h3><div class="text-xs text-gray-400 mt-1">Super Tie-Break</div></div>
+      </div>
+      <ul class="space-y-4 text-sm text-gray-300">
+          <li class="flex gap-3"><span class="text-neon-blue font-bold">1.</span><span>Счет по очкам (1, 2, 3...), без геймов.</span></li>
+          <li class="flex gap-3"><span class="text-neon-blue font-bold">2.</span><span>Матч <strong>25 минут</strong>. Таймер у каждого матча свой.</span></li>
+          <li class="flex gap-3"><span class="text-neon-blue font-bold">3.</span><span><strong>10 очков</strong> — автоматическая победа (Mercy Rule).</span></li>
+          <li class="flex gap-3"><span class="text-neon-blue font-bold">4.</span><span>Подача меняется каждые 2 очка.</span></li>
+      </ul>
+      <button id="rules-ok" class="w-full mt-6 py-3 bg-neon-blue text-white font-bold rounded-xl hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/30">Понятно!</button>
+    </div>
+  </div>
+
+  <!-- Reset Modal -->
+  <div id="reset-modal" class="fixed inset-0 bg-black/80 z-[90] hidden flex items-center justify-center p-4 backdrop-blur-md">
+    <div class="glass-panel bg-slate-900 rounded-2xl shadow-2xl p-6 w-full max-w-xs border border-white/10">
+      <h3 class="text-lg font-bold text-white mb-2">Полный сброс</h3>
+      <p class="text-sm text-gray-400 mb-6">Удалить все результаты и таймеры?</p>
+      <div class="flex gap-3">
+        <button id="modal-cancel" class="flex-1 py-3 bg-white/5 text-gray-300 font-bold rounded-xl">Отмена</button>
+        <button id="modal-confirm" class="flex-1 py-3 bg-red-600 text-white font-bold rounded-xl">Сброс</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stop Match Modal -->
+  <div id="stop-match-modal" class="fixed inset-0 bg-black/80 z-[90] hidden flex items-center justify-center p-4 backdrop-blur-md">
+    <div class="glass-panel bg-slate-900 rounded-2xl shadow-2xl p-6 w-full max-w-xs border border-white/10">
+      <h3 class="text-lg font-bold text-white mb-2">Сброс времени?</h3>
+      <p class="text-sm text-gray-400 mb-6">Таймер матча вернется к 25:00.</p>
+      <div class="flex gap-3">
+        <button id="stop-match-cancel" class="flex-1 py-3 bg-white/5 text-gray-300 font-bold rounded-xl">Нет</button>
+        <button id="stop-match-confirm" class="flex-1 py-3 bg-red-600 text-white font-bold rounded-xl">Сброс</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photo Modal -->
+  <div id="photo-modal" class="fixed inset-0 bg-black/90 z-[70] hidden flex flex-col items-center justify-center p-4 backdrop-blur-md">
+    <div class="w-full max-w-md flex flex-col gap-4 relative">
+        <div class="flex justify-between items-center text-white">
+            <h3 class="font-bold text-lg">Результаты</h3>
+            <button id="close-photo-modal" class="bg-white/10 p-2 rounded-full">✕</button>
+        </div>
+        <div id="photo-container" class="rounded-xl overflow-hidden border border-white/20 shadow-2xl"></div>
+        <div class="text-center"><p class="text-neon-blue text-sm font-bold mb-2 animate-pulse">👆 Зажмите фото для сохранения</p></div>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div id="screenshot-loader" class="fixed inset-0 bg-black/90 z-[90] hidden flex flex-col items-center justify-center p-4 backdrop-blur-md">
+    <div class="animate-spin rounded-full h-12 w-12 border-4 border-neon-blue border-t-transparent mb-4"></div>
+    <div class="text-white font-bold text-lg tracking-wider">GENERATING...</div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="glass-panel border-b-0 z-20 flex-none bg-slate-900/80">
+    <div class="px-4 py-3 flex justify-between items-center border-b border-white/5">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-neon-blue to-purple-600 flex items-center justify-center font-black text-xs">KP</div>
+            <div class="leading-none">
+                <div class="text-xs font-bold text-gray-400">KONDR PADEL</div>
+                <div class="text-sm font-black text-white">ULTIMATE 2025</div>
+            </div>
+        </div>
+        <div class="flex gap-2">
+             <!-- RULES BUTTON RESTORED -->
+             <button id="rules-btn" class="p-2 bg-white/5 rounded-lg text-lg tap-effect border border-white/10 text-gray-300">ℹ️</button>
+             <button id="share-btn" class="p-2 bg-white/5 rounded-lg text-lg tap-effect">📸</button>
+             <button id="reset-btn-trigger" class="p-2 bg-white/5 rounded-lg text-lg tap-effect">♻️</button>
+        </div>
+    </div>
+    <!-- Team Legend -->
+    <div class="px-4 py-2 overflow-x-auto hide-scroll whitespace-nowrap flex gap-2 bg-black/20">
+      <div class="px-3 py-1 rounded bg-blue-500/10 border border-blue-500/30 flex items-center gap-2"><span class="font-black text-blue-400">A</span><span class="text-[10px] text-gray-300">Артур / Оля</span></div>
+      <div class="px-3 py-1 rounded bg-indigo-500/10 border border-indigo-500/30 flex items-center gap-2"><span class="font-black text-indigo-400">B</span><span class="text-[10px] text-gray-300">Родик / Полин</span></div>
+      <div class="px-3 py-1 rounded bg-purple-500/10 border border-purple-500/30 flex items-center gap-2"><span class="font-black text-purple-400">C</span><span class="text-[10px] text-gray-300">Николя / Маня</span></div>
+      <div class="px-3 py-1 rounded bg-orange-500/10 border border-orange-500/30 flex items-center gap-2"><span class="font-black text-orange-400">D</span><span class="text-[10px] text-gray-300">Старый / Кондр</span></div>
+    </div>
+  </header>
+
+  <!-- WARMUP TIMER -->
+  <div class="p-3 flex items-center justify-between bg-slate-900/50 border-b border-white/5">
+      <div class="flex items-center gap-3">
+          <div class="text-3xl font-black font-mono text-white digital-font tracking-wider" id="warmup-display">10:00</div>
+          <div class="text-[10px] font-bold text-gray-400 uppercase leading-tight">Разминка<br>общая</div>
+      </div>
+      <div class="flex gap-2">
+          <button onclick="toggleWarmup()" id="warmup-btn" class="px-6 py-2 bg-slate-700 rounded-lg font-bold text-xs text-white hover:bg-slate-600 tap-effect border border-white/10">▶️ СТАРТ</button>
+          <button onclick="resetWarmup()" class="px-4 py-2 bg-slate-800 rounded-lg text-gray-400 hover:bg-slate-700 tap-effect border border-white/10">↺</button>
+      </div>
+  </div>
+
+  <!-- CONTENT -->
+  <main class="flex-1 overflow-y-auto p-3 max-w-5xl mx-auto w-full space-y-6 pb-24">
+
+    <!-- MATCHES -->
+    <div id="matches-container" class="space-y-4"></div>
+
+    <!-- FINALS -->
+    <div id="playoffs-section" class="hidden flex-col gap-4 pt-4 border-t border-white/10">
+         <div class="text-center"><span class="text-xs font-black text-yellow-500 uppercase tracking-[0.2em] bg-yellow-500/10 px-3 py-1 rounded-full border border-yellow-500/20">Финалы</span></div>
+        <div id="finals-container" class="space-y-4"></div>
+    </div>
+
+    <!-- CAPTURE TARGET (Standings) -->
+    <div id="capture-target" class="glass-panel rounded-xl overflow-hidden border border-white/10 mt-6 bg-[#0f172a] relative">
+        <div id="screenshot-header" class="hidden p-4 bg-gradient-to-r from-blue-900 to-slate-900 text-center border-b border-white/10">
+             <div class="text-2xl font-black text-white tracking-widest">KONDR PADEL</div>
+             <div class="text-xs text-blue-300">BIRTHDAY 2025 RESULTS</div>
+        </div>
+        <!-- Podium -->
+        <div id="screenshot-podium" class="hidden flex-row justify-center gap-2 pt-4 pb-2 bg-[#0f172a]">
+             <div class="flex flex-col items-center justify-end w-1/3">
+                 <div class="text-[10px] text-gray-400 font-bold mb-1">🥈 SILVER</div>
+                 <div class="w-full bg-slate-700 h-16 rounded-t-lg flex items-center justify-center text-center px-1 border-t-4 border-slate-400"><span id="podium-silver" class="text-xs font-bold text-white">TBD</span></div>
+             </div>
+             <div class="flex flex-col items-center justify-end w-1/3">
+                 <div class="text-xl mb-1">👑</div>
+                 <div class="text-[10px] text-yellow-400 font-bold mb-1">🥇 GOLD</div>
+                 <div class="w-full bg-yellow-900/40 h-24 rounded-t-lg flex items-center justify-center text-center px-1 border-t-4 border-yellow-400 relative overflow-hidden">
+                     <div class="absolute inset-0 bg-yellow-400/10 animate-pulse"></div>
+                     <span id="podium-gold" class="text-sm font-black text-white z-10">TBD</span>
+                 </div>
+             </div>
+             <div class="flex flex-col items-center justify-end w-1/3">
+                 <div class="text-[10px] text-orange-400 font-bold mb-1">🥉 BRONZE</div>
+                 <div class="w-full bg-orange-900/40 h-12 rounded-t-lg flex items-center justify-center text-center px-1 border-t-4 border-orange-500"><span id="podium-bronze" class="text-xs font-bold text-white">TBD</span></div>
+             </div>
+        </div>
+
+        <div class="bg-white/5 px-4 py-2 text-[10px] font-bold uppercase text-gray-500 tracking-widest flex justify-between">
+            <span>Турнирная таблица</span>
+            <span class="text-neon-blue">LIVE</span>
+        </div>
+        <table class="w-full text-xs">
+            <thead class="text-gray-500 border-b border-white/5">
+                <tr><th class="py-2 text-center w-8">#</th><th class="text-left">Команда</th><th class="text-center w-8">И</th><th class="text-center w-8">В</th><th class="text-center w-10">РГ</th><th class="text-center w-10 text-neon-blue">О</th></tr>
+            </thead>
+            <tbody id="standings-body" class="divide-y divide-white/5 text-gray-300 font-medium"></tbody>
+        </table>
+        <div id="screenshot-footer" class="hidden p-2 text-center text-[8px] text-gray-600 uppercase bg-[#0f172a]">Generated by Kondr System</div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const STORAGE_KEY = "kondr_ultimate_final_v6"; 
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+      function playSound(type) {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator(); const gainNode = audioCtx.createGain(); osc.connect(gainNode); gainNode.connect(audioCtx.destination);
+        if (type === 'point') { osc.type = 'sine'; osc.frequency.setValueAtTime(600, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime+0.1); gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+0.1); osc.start(); osc.stop(audioCtx.currentTime+0.1); }
+        else if (type === 'win') { osc.type = 'square'; osc.frequency.setValueAtTime(400, audioCtx.currentTime); osc.frequency.linearRampToValueAtTime(800, audioCtx.currentTime+0.2); gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime+0.5); osc.start(); osc.stop(audioCtx.currentTime+0.5); }
+        else if (type === 'siren') { osc.type = 'sawtooth'; osc.frequency.setValueAtTime(800, audioCtx.currentTime); osc.frequency.linearRampToValueAtTime(400, audioCtx.currentTime+0.5); gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime+1.5); osc.start(); osc.stop(audioCtx.currentTime+1.5); }
+      }
+
+      const teams = {
+        A: { name: "А&О", full: "Артур & Оля", color: "text-blue-400", code: "A" },
+        B: { name: "Р&П", full: "Родик & Полинский", color: "text-indigo-400", code: "B" },
+        C: { name: "Н&М", full: "Николя & Манякус", color: "text-purple-400", code: "C" },
+        D: { name: "С&К", full: "Старый & Кондр", color: "text-orange-400", code: "D" }
+      };
+      
+      const matches = [
+          { id: 1, t1: "A", t2: "B", court: 1 }, { id: 2, t1: "C", t2: "D", court: 2 },
+          { id: 3, t1: "A", t2: "C", court: 1 }, { id: 4, t1: "B", t2: "D", court: 2 },
+          { id: 5, t1: "A", t2: "D", court: 1 }, { id: 6, t1: "B", t2: "C", court: 2 }
+      ];
+
+      let state = { scores: {}, warmup: { time: 600, active: false }, confettiShown: false };
+      let globalTicker = null; let targetMatchIdForStop = null;
+
+      function init() { loadState(); renderUI(); startGlobalTicker(); }
+      function loadState() { try { const r = localStorage.getItem(STORAGE_KEY); if(r) state = JSON.parse(r); } catch(e) {} matches.forEach(m => { if(!state.scores[m.id]) state.scores[m.id] = { t1: 0, t2: 0, winner: null, locked: false, time: 1500, timeActive: false }; }); if(!state.scores[7]) state.scores[7] = { t1: 0, t2: 0, winner: null, locked: false, time: 1500, timeActive: false }; if(!state.scores[8]) state.scores[8] = { t1: 0, t2: 0, winner: null, locked: false, time: 1500, timeActive: false }; if(!state.warmup) state.warmup = { time: 600, active: false }; }
+      function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+      function startGlobalTicker() {
+          clearInterval(globalTicker);
+          globalTicker = setInterval(() => {
+              let changed = false;
+              if (state.warmup.active && state.warmup.time > 0) { state.warmup.time--; updateWarmupDisplay(); changed = true; if (state.warmup.time === 0) { state.warmup.active = false; playSound('siren'); alert("Разминка окончена!"); } }
+              Object.keys(state.scores).forEach(id => {
+                  const s = state.scores[id];
+                  if (s.timeActive && s.time > 0 && !s.locked) {
+                      s.time--; updateMatchTimerDisplay(id); changed = true;
+                      if (s.time === 0) { s.timeActive = false; playSound('siren'); checkAutoWinner(id, true); renderUI(); }
+                  }
+              });
+              if (changed && (Date.now() % 5000 < 1000)) saveState();
+          }, 1000);
+          updateWarmupDisplay();
+      }
+
+      window.toggleWarmup = function() { state.warmup.active = !state.warmup.active; updateWarmupDisplay(); saveState(); }
+      window.resetWarmup = function() { state.warmup.active = false; state.warmup.time = 600; updateWarmupDisplay(); saveState(); }
+      function updateWarmupDisplay() { const m = Math.floor(state.warmup.time / 60).toString().padStart(2,'0'); const s = (state.warmup.time % 60).toString().padStart(2,'0'); document.getElementById('warmup-display').innerText = `${m}:${s}`; document.getElementById('warmup-btn').innerText = state.warmup.active ? "⏸" : "▶️ СТАРТ"; }
+
+      window.toggleMatchTimer = function(id) { const s = state.scores[id]; if (s.locked) return; s.timeActive = !s.timeActive; updateMatchTimerDisplay(id); saveState(); }
+      window.requestStopMatchTimer = function(id) { targetMatchIdForStop = id; document.getElementById('stop-match-modal').classList.remove('hidden'); }
+      document.getElementById('stop-match-cancel').onclick = () => document.getElementById('stop-match-modal').classList.add('hidden');
+      document.getElementById('stop-match-confirm').onclick = () => { if (targetMatchIdForStop) { const s = state.scores[targetMatchIdForStop]; s.timeActive = false; s.time = 1500; saveState(); renderUI(); } document.getElementById('stop-match-modal').classList.add('hidden'); };
+
+      function updateMatchTimerDisplay(id) {
+          const el = document.getElementById(`timer-${id}`); const btn = document.getElementById(`timer-btn-${id}`); if (!el) return;
+          const s = state.scores[id];
+          const m = Math.floor(s.time / 60).toString().padStart(2,'0'); const sec = (s.time % 60).toString().padStart(2,'0');
+          el.innerText = `${m}:${sec}`; btn.innerText = s.timeActive ? "⏸" : "▶️";
+          if (s.timeActive) el.className = "font-mono font-black text-3xl text-neon-blue digital-font min-w-[100px] text-center";
+          else el.className = "font-mono font-black text-3xl text-gray-500 digital-font min-w-[100px] text-center";
+          if (s.time === 0) document.getElementById(`match-card-${id}`).classList.add('animate-flash-red');
+      }
+
+      window.adjustScore = function(matchId, teamKey, delta) {
+          const s = state.scores[matchId]; if (s.locked) return; 
+          s[teamKey] += delta; if (s[teamKey] < 0) s[teamKey] = 0;
+          playSound('point'); if (s[teamKey] >= 10) checkAutoWinner(matchId, true);
+          saveState(); renderUI();
+      }
+
+      function checkAutoWinner(matchId, force = false) {
+          const s = state.scores[matchId]; if (s.locked) return;
+          if (s.t1 >= 10 || s.t2 >= 10 || force) {
+              s.locked = true; s.timeActive = false;
+              const code1 = getTeamCode(matchId, 1); const code2 = getTeamCode(matchId, 2);
+              if (s.t1 > s.t2) s.winner = code1; else if (s.t2 > s.t1) s.winner = code2; else s.winner = null;
+              if (s.winner) { playSound('win'); if (navigator.vibrate) navigator.vibrate([100,50,100]); }
+          }
+      }
+
+      function getTeamCode(matchId, teamNum) {
+          if(matchId <= 6) { const m = matches.find(x => x.id == matchId); return teamNum === 1 ? m.t1 : m.t2; }
+          else { const ranked = getRankedList(); if(ranked.length < 4) return "A"; if (matchId == 7) return teamNum === 1 ? ranked[0].code : ranked[1].code; if (matchId == 8) return teamNum === 1 ? ranked[2].code : ranked[3].code; }
+      }
+
+      function getRankedList() {
+          const stats = {}; Object.keys(teams).forEach(k => stats[k] = { code: k, name: teams[k].name, p: 0, w: 0, l: 0, gf: 0, ga: 0, pts: 0 });
+          matches.forEach(m => { const s = state.scores[m.id]; if (s.locked && s.winner) { const w = s.winner; const l = m.t1 === w ? m.t2 : m.t1; stats[w].p++; stats[w].w++; stats[w].pts += 2; stats[l].p++; stats[l].l++; stats[m.t1].gf += s.t1; stats[m.t1].ga += s.t2; stats[m.t2].gf += s.t2; stats[m.t2].ga += s.t1; } });
+          const list = Object.values(stats); list.sort((a,b) => (b.pts - a.pts) || ((b.gf - b.ga) - (a.gf - a.ga)) || (b.gf - a.gf)); window.lastRankedList = list; return list;
+      }
+
+      function renderUI() {
+          const container = document.getElementById('matches-container'); container.innerHTML = '';
+          const ranked = getRankedList(); renderStandings(ranked);
+          matches.forEach(m => container.appendChild(createMatchCard(m, false)));
+          const playedCount = matches.filter(m => state.scores[m.id].locked).length;
+          const playoffsDiv = document.getElementById('playoffs-section');
+          if(playedCount >= 6) {
+              playoffsDiv.classList.remove('hidden'); playoffsDiv.classList.add('flex');
+              const finalsContainer = document.getElementById('finals-container'); finalsContainer.innerHTML = '';
+              const finalM = { id: 7, t1Obj: ranked[0], t2Obj: ranked[1], type: 'gold' }; finalsContainer.appendChild(createMatchCard(finalM, true));
+              const bronzeM = { id: 8, t1Obj: ranked[2], t2Obj: ranked[3], type: 'bronze' }; finalsContainer.appendChild(createMatchCard(bronzeM, true));
+              const finalScore = state.scores[7];
+              if(finalScore.locked && finalScore.winner && !state.confettiShown) { state.confettiShown = true; launchConfetti(); playSound('win'); }
+          }
+      }
+
+      function createMatchCard(match, isFinal) {
+          const s = state.scores[match.id]; const t1 = isFinal ? match.t1Obj : teams[match.t1]; const t2 = isFinal ? match.t2Obj : teams[match.t2];
+          const card = document.createElement('div'); card.id = `match-card-${match.id}`;
+          let bgClass = "glass-panel"; let title = `Матч ${match.id}`;
+          if (isFinal) { if(match.type === 'gold') { bgClass = "bg-gradient-to-br from-yellow-900/40 to-black border border-yellow-500/30"; title = "🏆 ФИНАЛ"; } else { bgClass = "bg-gradient-to-br from-orange-900/40 to-black border border-orange-500/30"; title = "🥉 3-Е МЕСТО"; } } else if (s.locked) { bgClass = "bg-slate-800/50 border-white/5 opacity-70 grayscale"; }
+          card.className = `${bgClass} p-4 rounded-2xl flex flex-col gap-4 transition-all duration-300`;
+          const m = Math.floor(s.time / 60).toString().padStart(2,'0'); const sec = (s.time % 60).toString().padStart(2,'0');
+          const timerColor = s.timeActive ? 'text-neon-blue' : 'text-gray-500';
+
+          card.innerHTML = `
+            <div class="flex justify-between items-center border-b border-white/5 pb-2"><span class="text-xs font-black text-gray-400 uppercase tracking-wider">${title}</span>${!isFinal ? `<span class="text-[10px] font-bold text-gray-500">Корт ${match.court}</span>` : ''}${s.locked ? `<span class="text-[9px] font-bold bg-white/10 px-2 py-1 rounded text-gray-500">ЗАВЕРШЕН</span>` : ''}</div>
+            <div class="flex items-center justify-between gap-2">
+                <div class="flex-1 flex flex-col items-center gap-2"><div class="text-sm font-bold ${isFinal ? 'text-white' : teams[match.t1].color}">${t1.name}</div>${ s.locked ? '' : `<div class="flex gap-1"><button onclick="adjustScore(${match.id}, 't1', -1)" class="w-10 h-10 rounded-xl bg-white/5 text-gray-400 font-bold text-xl tap-effect">-</button><button onclick="adjustScore(${match.id}, 't1', 1)" class="w-10 h-10 rounded-xl bg-neon-blue text-white font-bold text-xl tap-effect shadow-lg">+</button></div>` }</div>
+                <div class="flex items-center gap-2 px-3 py-2 bg-black/30 rounded-xl border border-white/5"><span class="text-3xl font-black digital-font ${s.t1 > s.t2 ? 'text-white' : 'text-gray-500'}">${s.t1}</span><span class="text-gray-600 text-xl">:</span><span class="text-3xl font-black digital-font ${s.t2 > s.t1 ? 'text-white' : 'text-gray-500'}">${s.t2}</span></div>
+                <div class="flex-1 flex flex-col items-center gap-2"><div class="text-sm font-bold ${isFinal ? 'text-white' : teams[match.t2].color}">${t2.name}</div>${ s.locked ? '' : `<div class="flex gap-1"><button onclick="adjustScore(${match.id}, 't2', -1)" class="w-10 h-10 rounded-xl bg-white/5 text-gray-400 font-bold text-xl tap-effect">-</button><button onclick="adjustScore(${match.id}, 't2', 1)" class="w-10 h-10 rounded-xl bg-neon-blue text-white font-bold text-xl tap-effect shadow-lg">+</button></div>` }</div>
+            </div>
+            ${ !s.locked ? `<div class="flex items-center gap-2 mt-1 pt-3 border-t border-white/5"><button onclick="toggleMatchTimer(${match.id})" id="timer-btn-${match.id}" class="flex-1 py-3 bg-slate-700 rounded-xl font-bold text-sm hover:bg-slate-600 tap-effect flex justify-center items-center gap-2 shadow-lg">${s.timeActive ? '⏸ ПАУЗА' : '▶️ СТАРТ'}</button><div class="px-4 py-2 bg-black/40 rounded-xl border border-white/10"><span id="timer-${match.id}" class="font-mono font-black text-3xl ${timerColor} digital-font min-w-[100px] text-center block">${m}:${sec}</span></div><button onclick="requestStopMatchTimer(${match.id})" class="px-4 py-3 bg-red-500/10 text-red-500 rounded-xl font-bold text-xl hover:bg-red-500/20 tap-effect border border-red-500/20">⏹</button></div>` : ''}
+            ${s.locked && s.winner ? `<div class="absolute inset-0 pointer-events-none border-2 ${s.winner === (isFinal?t1.code:match.t1) ? 'border-l-4 border-l-green-500' : 'border-r-4 border-r-green-500'} border-transparent rounded-2xl"></div>` : ''}
+          `;
+          return card;
+      }
+
+      function renderStandings(list) {
+          const tbody = document.getElementById('standings-body'); tbody.innerHTML = '';
+          list.forEach((t, i) => { const diff = (t.gf - t.ga); const dDisp = diff > 0 ? `+${diff}` : diff; tbody.innerHTML += `<tr><td class="py-2 text-center text-gray-500 font-mono">${i+1}</td><td class="text-gray-300 font-bold">${t.name}</td><td class="text-center text-gray-500">${t.p}</td><td class="text-center text-green-400">${t.w}</td><td class="text-center text-gray-500 text-[10px]">${dDisp}</td><td class="text-center font-black text-neon-blue text-lg">${t.pts}</td></tr>`; });
+      }
+      function launchConfetti() { var d=4000; var e=Date.now()+d; (function f(){confetti({particleCount:3,angle:60,spread:55,origin:{x:0}});confetti({particleCount:3,angle:120,spread:55,origin:{x:1}});if(Date.now()<e)requestAnimationFrame(f);}()); }
+
+      // Events
+      document.getElementById('rules-btn').onclick = () => document.getElementById('rules-modal').classList.remove('hidden');
+      document.getElementById('close-rules').onclick = () => document.getElementById('rules-modal').classList.add('hidden');
+      document.getElementById('rules-ok').onclick = () => document.getElementById('rules-modal').classList.add('hidden');
+      document.getElementById('reset-btn-trigger').onclick = () => document.getElementById('reset-modal').classList.remove('hidden');
+      document.getElementById('modal-cancel').onclick = () => document.getElementById('reset-modal').classList.add('hidden');
+      document.getElementById('modal-confirm').onclick = () => { localStorage.removeItem(STORAGE_KEY); location.reload(); };
+      document.getElementById('close-photo-modal').onclick = () => document.getElementById('photo-modal').classList.add('hidden');
+
+      document.getElementById('share-btn').onclick = async () => {
+          document.getElementById('screenshot-loader').classList.remove('hidden');
+          document.getElementById('screenshot-header').classList.remove('hidden');
+          document.getElementById('screenshot-footer').classList.remove('hidden');
+          
+          const m7 = state.scores[7]; const m8 = state.scores[8];
+          if(m7 && m7.winner && window.lastRankedList) {
+              document.getElementById('screenshot-podium').classList.remove('hidden'); document.getElementById('screenshot-podium').classList.add('flex');
+              document.getElementById('podium-gold').innerText = teams[m7.winner].name;
+              const p1 = window.lastRankedList[0].code; const p2 = window.lastRankedList[1].code; const sCode = (m7.winner === p1) ? p2 : p1;
+              document.getElementById('podium-silver').innerText = teams[sCode].name;
+              if(m8 && m8.winner) document.getElementById('podium-bronze').innerText = teams[m8.winner].name;
+              else document.getElementById('podium-bronze').innerText = "---";
+          }
+          
+          await new Promise(r => setTimeout(r, 500));
+          const cvs = await html2canvas(document.getElementById('capture-target'), { backgroundColor: '#0f172a', scale: 2 });
+          const img = new Image(); img.src = cvs.toDataURL(); img.className = "w-full";
+          document.getElementById('photo-container').innerHTML = '';
+          document.getElementById('photo-container').appendChild(img);
+          document.getElementById('screenshot-loader').classList.add('hidden');
+          document.getElementById('screenshot-header').classList.add('hidden');
+          document.getElementById('screenshot-footer').classList.add('hidden');
+          document.getElementById('screenshot-podium').classList.add('hidden');
+          document.getElementById('screenshot-podium').classList.remove('flex');
+          document.getElementById('photo-modal').classList.remove('hidden');
+      };
+
+      init();
+    });
+  </script>
+</body>
+</html>
