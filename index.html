@@ -2,499 +2,1385 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Kondr Padel Birthday 2025</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#0f172a">
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Confetti -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <!-- Screenshot -->
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <title>Домашний повар Кишкоблуд</title>
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color-scheme: dark;
+      --bg: #050816;
+      --bg-elevated: #0f172a;
+      --bg-soft: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --danger: #f87171;
+      --danger-soft: rgba(248, 113, 113, 0.1);
+      --radius-lg: 12px;
+    }
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'neon-blue': '#3b82f6',
-            'neon-purple': '#8b5cf6',
-            'dark-bg': '#0f172a',
-            'glass': 'rgba(255, 255, 255, 0.05)',
-          },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          animation: {
-            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'bounce-slow': 'bounce 2s infinite',
-          }
-        }
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1100px;
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.08), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(190,242,100,0.06), transparent 55%),
+                  var(--bg);
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.9);
+      padding: 20px 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .app-title {
+      font-size: clamp(22px, 3vw, 26px);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .app-title span.badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(56,189,248,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .tab-button {
+      border: none;
+      border-radius: 999px;
+      padding: 7px 14px;
+      background: rgba(15,23,42,0.8);
+      color: var(--text-muted);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.18s ease, color 0.18s ease, transform 0.08s ease;
+    }
+
+    .tab-button span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: transparent;
+    }
+
+    .tab-button.active {
+      background: linear-gradient(135deg, rgba(56,189,248,0.2), rgba(56,189,248,0.05));
+      color: var(--text-main);
+    }
+
+    .tab-button.active span.dot {
+      background: var(--accent);
+    }
+
+    .tab-button:hover {
+      transform: translateY(-1px);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
       }
     }
-  </script>
-  <style>
-    body { 
-        font-family: 'Inter', sans-serif; 
-        -webkit-tap-highlight-color: transparent; 
-        background-color: #0f172a; 
-        color: #e2e8f0;
-    }
-    .hide-scroll::-webkit-scrollbar { display: none; }
-    .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-    .tap-effect:active { transform: scale(0.96); }
-    
-    .glass-panel {
-        background: rgba(30, 41, 59, 0.7);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    
-    .glass-gold {
-        background: linear-gradient(135deg, rgba(234, 179, 8, 0.15), rgba(0,0,0,0.6));
-        border: 1px solid rgba(234, 179, 8, 0.4);
-        box-shadow: 0 0 20px rgba(234, 179, 8, 0.1);
-    }
-    
-    .glass-bronze {
-        background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(0,0,0,0.6));
-        border: 1px solid rgba(249, 115, 22, 0.4);
+
+    .view {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    /* Dropdown styling */
-    .score-select { 
-        text-align: center; 
-        text-align-last: center;
-        background: rgba(0, 0, 0, 0.4);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
-        color: white;
-        outline: none;
-        font-family: monospace;
-        font-weight: bold;
-        font-size: 1.1rem;
-        appearance: none; /* Hide default arrow */
-        padding: 0;
-        transition: all 0.2s;
-        cursor: pointer;
-    }
-    .score-select:focus { 
-        border-color: #3b82f6; 
-        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
-        background: rgba(0, 0, 0, 0.6);
+    .view.active {
+      display: flex;
     }
 
-    .bg-gradient-animate {
-        background: linear-gradient(-45deg, #0f172a, #1e1b4b, #172554, #0f172a);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
-    }
-    @keyframes gradientBG {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+    .card {
+      background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.45), transparent 60%),
+                  linear-gradient(135deg, rgba(15,23,42,1), rgba(15,23,42,0.96));
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148,163,184,0.4);
+      padding: 10px 12px;
     }
 
-    /* Toast */
-    #toast {
-        visibility: hidden; opacity: 0; transform: translate(-50%, 20px); transition: all 0.3s;
+    .card-soft {
+      background: rgba(15,23,42,0.9);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(51,65,85,0.9);
+      padding: 10px 12px;
     }
-    #toast.show { visibility: visible; opacity: 1; transform: translate(-50%, 0); }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      border: none;
+      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.9), rgba(56,189,248,0.55));
+      color: #0b1120;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 10px 25px rgba(56,189,248,0.35);
+      transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.08s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 18px 35px rgba(56,189,248,0.45);
+    }
+
+    .btn-ghost {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: transparent;
+      color: var(--text-muted);
+      padding: 6px 11px;
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15,23,42,0.9);
+      color: var(--text-main);
+      border-color: var(--accent);
+    }
+
+    .recipes-list, .suggested-list, .fridge-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .recipe-card {
+      border-radius: 10px;
+      border: 1px solid rgba(51,65,85,1);
+      background: linear-gradient(135deg, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .recipe-header-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+
+    .recipe-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .recipe-meta {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .status-chip {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .status-full {
+      background: rgba(34,197,94,0.12);
+      color: #4ade80;
+      border: 1px solid rgba(34,197,94,0.6);
+    }
+
+    .status-partial {
+      background: rgba(234,179,8,0.12);
+      color: #facc15;
+      border: 1px solid rgba(234,179,8,0.6);
+    }
+
+    .recipe-body {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .recipe-actions {
+      margin-top: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    details {
+      background: rgba(15,23,42,0.9);
+      border-radius: 8px;
+      padding: 6px 8px;
+      border: 1px dashed rgba(55,65,81,0.8);
+    }
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details[open] summary {
+      margin-bottom: 4px;
+    }
+
+    .steps {
+      margin: 0;
+      padding-left: 16px;
+      font-size: 12px;
+    }
+
+    .steps li {
+      margin-bottom: 3px;
+    }
+
+    .fridge-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fridge-list-item {
+      display: grid;
+      grid-template-columns: 1.7fr 1.1fr 1.3fr auto;
+      gap: 6px;
+      align-items: center;
+      font-size: 12px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(55,65,81,1);
+    }
+
+    .fridge-name {
+      font-weight: 500;
+    }
+
+    .fridge-amount {
+      color: var(--text-muted);
+    }
+
+    .fridge-expire {
+      font-size: 11px;
+    }
+
+    .expire-soon {
+      color: #fde68a;
+    }
+
+    .expire-danger {
+      color: #fecaca;
+    }
+
+    .btn-icon {
+      border-radius: 999px;
+      border: none;
+      background: rgba(31,41,55,0.9);
+      color: var(--text-muted);
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+      padding: 0;
+    }
+
+    .btn-icon:hover {
+      background: rgba(51,65,85,1);
+      color: #f9fafb;
+    }
+
+    .fridge-empty, .suggest-empty {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .badge-inline {
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: rgba(15,23,42,1);
+      border: 1px solid rgba(55,65,81,1);
+      color: var(--accent);
+    }
+
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      font-size: 11px;
+    }
+
+    .chip-muted {
+      background: rgba(15,23,42,1);
+      border-radius: 999px;
+      padding: 1px 7px;
+      border: 1px solid rgba(55,65,81,1);
+      color: var(--text-muted);
+    }
+
+    form.fridge-form {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr 0.8fr auto;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      form.fridge-form {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    input, select {
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,1);
+      background: rgba(15,23,42,0.95);
+      color: var(--text-main);
+      padding: 6px 9px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: rgba(148,163,184,0.8);
+    }
+
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56,189,248,0.3);
+    }
+
+    .btn-small {
+      padding: 6px 10px;
+      font-size: 12px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(56,189,248,0.15);
+      color: var(--accent);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-small:hover {
+      background: rgba(56,189,248,0.3);
+    }
+
+    .expire-block {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-size: 11px;
+    }
+
+    .expire-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,1);
+      background: rgba(15,23,42,0.95);
+    }
+
+    .expire-tag span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--danger);
+    }
+
+    .small-label {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .secondary-text {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .link {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 11px;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
-<body class="bg-gradient-animate h-screen flex flex-col overflow-hidden relative selection:bg-neon-blue selection:text-white">
-
-  <!-- Toast -->
-  <div id="toast" class="fixed bottom-10 left-1/2 glass-panel text-white px-6 py-3 rounded-full shadow-2xl z-[80] font-medium text-sm text-center whitespace-nowrap pointer-events-none flex items-center gap-2 border-neon-blue/30">
-    <span id="toast-icon">📸</span> <span id="toast-msg">Фото сохранено!</span>
-  </div>
-
-  <!-- Rules Modal -->
-  <div id="rules-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md">
-    <div class="glass-panel bg-slate-900 rounded-2xl shadow-2xl p-6 w-full max-w-sm transform transition-all scale-100 border border-white/10 relative">
-      <button id="close-rules" class="absolute top-4 right-4 text-gray-400 hover:text-white">✕</button>
-      <div class="flex items-center gap-3 mb-5">
-          <div class="w-10 h-10 rounded-full bg-neon-blue/20 flex items-center justify-center text-xl">📋</div>
-          <div>
-              <h3 class="text-lg font-bold text-white leading-none">Правила Турнира</h3>
-              <div class="text-xs text-gray-400 mt-1">Формат: Super Tie-Break</div>
-          </div>
+<body>
+<div class="app">
+  <header>
+    <div class="title-block">
+      <div class="app-title">
+        🍳 Домашний повар «Кишкоблуд»
+        <span class="badge">MVP</span>
       </div>
-      <ul class="space-y-4 text-sm text-gray-300">
-          <li class="flex gap-3"><span class="text-neon-blue font-bold">1.</span><span><strong class="text-white">Счет по очкам.</strong> 1, 2, 3... без геймов.</span></li>
-          <li class="flex gap-3"><span class="text-neon-blue font-bold">2.</span><span><strong class="text-white">Время — 25 мин.</strong> Кто ведет в счете по сирене — победил.</span></li>
-          <li class="flex gap-3"><span class="text-neon-blue font-bold">3.</span><span><strong class="text-white">Подача.</strong> Смена каждые 2 очка.</span></li>
-          <li class="flex gap-3"><span class="text-neon-blue font-bold">4.</span><span><strong class="text-white">Ничья.</strong> Решающий розыгрыш ("Золотое очко").</span></li>
-      </ul>
-      <button id="rules-ok" class="w-full mt-6 py-3 bg-neon-blue text-white font-bold rounded-xl hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/30">Понятно!</button>
-    </div>
-  </div>
-
-  <!-- Reset Modal -->
-  <div id="reset-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md">
-    <div class="glass-panel bg-slate-900 rounded-2xl shadow-2xl p-6 w-full max-w-xs transform transition-all scale-100 border border-white/10">
-      <h3 class="text-lg font-bold text-white mb-2">Сброс турнира</h3>
-      <p class="text-sm text-gray-400 mb-6">Удалить все результаты?</p>
-      <div class="flex gap-3">
-        <button id="modal-cancel" class="flex-1 py-3 bg-white/5 text-gray-300 font-bold rounded-xl hover:bg-white/10 transition-colors">Нет</button>
-        <button id="modal-confirm" class="flex-1 py-3 bg-red-500/80 text-white font-bold rounded-xl hover:bg-red-500 shadow-lg shadow-red-500/20 transition-colors">Да</button>
+      <div class="subtitle">
+        Готовим дома, доедаем остатки, меньше доставки.
       </div>
+      <nav>
+        <button class="tab-button active" data-view="dashboard">
+          <span class="dot"></span> Главная
+        </button>
+        <button class="tab-button" data-view="recipes">
+          <span class="dot"></span> Рецепты
+        </button>
+        <button class="tab-button" data-view="fridge">
+          <span class="dot"></span> Холодильник
+        </button>
+      </nav>
     </div>
-  </div>
-
-  <!-- Photo Modal -->
-  <div id="photo-modal" class="fixed inset-0 bg-black/90 z-[70] hidden flex flex-col items-center justify-center p-4 backdrop-blur-md">
-    <div class="w-full max-w-md flex flex-col gap-4 relative">
-        <div class="flex justify-between items-center text-white">
-            <h3 class="font-bold text-lg">Результат</h3>
-            <button id="close-photo-modal" class="bg-white/10 p-2 rounded-full hover:bg-white/20">✕</button>
-        </div>
-        <div id="photo-container" class="rounded-xl overflow-hidden border border-white/20 shadow-2xl"></div>
-        <div class="text-center"><p class="text-neon-blue text-sm font-bold mb-2 animate-pulse">👆 Зажмите фото, чтобы сохранить</p></div>
-    </div>
-  </div>
-
-  <!-- Loader -->
-  <div id="screenshot-loader" class="fixed inset-0 bg-black/90 z-[90] hidden flex flex-col items-center justify-center p-4 backdrop-blur-md">
-    <div class="animate-spin rounded-full h-12 w-12 border-4 border-neon-blue border-t-transparent mb-4"></div>
-    <div class="text-white font-bold text-lg tracking-wider">RENDERING...</div>
-  </div>
-
-  <!-- HEADER -->
-  <header class="glass-panel border-b-0 z-20 flex-none">
-    <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <div class="relative">
-            <div class="absolute inset-0 bg-neon-blue blur opacity-40 rounded-xl"></div>
-            <div class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-slate-800 to-black border border-white/10 text-white flex items-center justify-center font-black text-xs shadow-lg">KP</div>
-        </div>
-        <div>
-          <h1 class="text-sm font-extrabold uppercase leading-none text-white tracking-widest">Kondr Padel</h1>
-          <div class="text-[10px] font-medium text-neon-blue mt-1">BIRTHDAY TOUR 2025</div>
-        </div>
-      </div>
-      <div class="flex gap-2">
-        <button id="rules-btn" class="bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-2 rounded-lg text-xs font-bold text-gray-200 transition-colors tap-effect">ℹ️</button>
-        <button id="share-btn" class="bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-2 rounded-lg text-xs font-bold text-gray-200 transition-colors flex items-center gap-2 tap-effect"><span>📸</span></button>
-        <button id="reset-btn-trigger" class="bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-2 rounded-lg text-xs font-medium text-gray-400 transition-colors tap-effect">♻️</button>
-      </div>
-    </div>
-    <div class="px-4 py-2 border-t border-white/5 overflow-x-auto hide-scroll whitespace-nowrap flex gap-3">
-      <div class="flex flex-col items-center justify-center px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 min-w-[85px]"><span class="text-xs font-black text-blue-400">А&О</span></div>
-      <div class="flex flex-col items-center justify-center px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 min-w-[85px]"><span class="text-xs font-black text-indigo-400">Р&П</span></div>
-      <div class="flex flex-col items-center justify-center px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 min-w-[85px]"><span class="text-xs font-black text-purple-400">Н&М</span></div>
-      <div class="flex flex-col items-center justify-center px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 min-w-[85px]"><span class="text-xs font-black text-orange-400">С&К</span></div>
-    </div>
+    <button class="btn-primary" id="btn-what-to-cook">
+      ⚡ Что приготовить сейчас
+    </button>
   </header>
 
-  <!-- CONTENT -->
-  <main class="flex-1 overflow-y-auto p-3 sm:p-4 max-w-5xl mx-auto w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 h-full pb-10">
-      
-      <!-- LEFT -->
-      <div class="lg:col-span-7 flex flex-col gap-6">
-        <div class="flex flex-col gap-3">
-            <div class="glass-panel rounded-xl p-3 flex justify-between items-center mb-1">
-              <div class="flex items-center gap-2">
-                <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-blue opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-neon-blue"></span></span>
-                <span class="text-xs font-bold text-gray-300">17:00</span>
-              </div>
-              <span class="text-xs font-bold text-neon-blue uppercase tracking-wider">Разминка 10 мин</span>
-            </div>
-            <div class="flex justify-between items-center px-1">
-                <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Групповой этап</span>
-                <span class="text-[10px] text-gray-500">25 мин/раунд</span>
-            </div>
-            <div id="matches-container" class="space-y-3"></div>
+  <main>
+    <!-- Левая колонка: активный экран -->
+    <section id="view-dashboard" class="view active">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            🔥 Что можно приготовить из того, что уже есть
+          </div>
+          <span class="pill">Подбор по холодильнику</span>
         </div>
-        <div id="playoffs-section" class="hidden flex-col gap-4 pt-4 border-t border-white/10">
-             <div class="flex items-center justify-between px-1 mb-1">
-                <div class="flex items-center gap-2">
-                    <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-500 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span></span>
-                    <span class="text-sm font-black text-white uppercase tracking-widest">ФИНАЛЫ</span>
-                </div>
-                <span class="text-xs font-bold text-yellow-500">18:30 – 19:00</span>
-            </div>
-            <div id="finals-container" class="space-y-4"></div>
-        </div>
+        <ul id="suggested-list" class="suggested-list"></ul>
       </div>
 
-      <!-- RIGHT -->
-      <div class="lg:col-span-5 flex flex-col gap-3">
-        <div id="capture-target" class="flex flex-col gap-3 rounded-xl bg-[#0f172a] p-2 relative">
-            <div id="screenshot-header" class="hidden p-4 bg-gradient-to-r from-blue-700 to-purple-800 rounded-xl text-white text-center mb-2 border border-white/20 shadow-lg">
-                <div class="text-2xl font-black uppercase tracking-widest text-white">Kondr Padel</div>
-                <div class="text-xs text-blue-100 font-mono mt-1 opacity-80">BIRTHDAY 2025 RESULTS</div>
-            </div>
-            <div id="screenshot-podium" class="hidden flex-row justify-center gap-2 mb-2">
-                <div class="flex flex-col items-center justify-end w-1/3 pt-4">
-                     <div class="text-[10px] text-gray-400 font-bold mb-1">🥈 SILVER</div>
-                     <div class="w-full bg-slate-600/50 border-t-4 border-slate-400 h-16 rounded-t-lg flex items-center justify-center text-center px-1"><span id="podium-silver" class="text-xs font-bold text-white leading-tight">Team</span></div>
-                </div>
-                <div class="flex flex-col items-center justify-end w-1/3">
-                     <div class="text-2xl mb-1">👑</div>
-                     <div class="text-[10px] text-yellow-400 font-bold mb-1">🥇 GOLD</div>
-                     <div class="w-full bg-yellow-600/30 border-t-4 border-yellow-400 h-24 rounded-t-lg flex items-center justify-center text-center px-1 relative overflow-hidden"><div class="absolute inset-0 bg-yellow-400/10 animate-pulse"></div><span id="podium-gold" class="text-sm font-black text-white leading-tight relative z-10">Team</span></div>
-                </div>
-                <div class="flex flex-col items-center justify-end w-1/3 pt-8">
-                     <div class="text-[10px] text-orange-400 font-bold mb-1">🥉 BRONZE</div>
-                     <div class="w-full bg-orange-700/30 border-t-4 border-orange-500 h-12 rounded-t-lg flex items-center justify-center text-center px-1"><span id="podium-bronze" class="text-xs font-bold text-white leading-tight">Team</span></div>
-                </div>
-            </div>
-            <div id="status-box" class="p-4 rounded-xl border text-sm font-bold text-center transition-all duration-500 glass-panel text-gray-500 border-white/5">Ожидание данных...</div>
-            <div class="glass-panel rounded-xl overflow-hidden">
-              <div class="px-4 py-3 border-b border-white/5 bg-white/5 flex justify-between items-center"><h3 class="text-[10px] font-bold uppercase text-gray-400 tracking-widest">Группа</h3><div class="h-1.5 w-1.5 rounded-full bg-green-500"></div></div>
-              <table class="w-full text-xs sm:text-sm"><thead class="bg-white/5 text-gray-400 font-bold border-b border-white/5"><tr><th class="px-2 py-3 text-center w-6">#</th><th class="px-2 py-3 text-left">Пара</th><th class="px-1 py-3 text-center w-6 opacity-60">И</th><th class="px-1 py-3 text-center w-6 text-green-400">В</th><th class="px-1 py-3 text-center w-8 opacity-60">РГ</th><th class="px-2 py-3 text-center font-black text-neon-blue w-8">О</th></tr></thead><tbody id="standings-body" class="divide-y divide-white/5 text-gray-200"></tbody></table>
-            </div>
-            <div id="screenshot-footer" class="hidden text-center text-[9px] text-gray-600 mt-4 font-mono uppercase">Generated by Kondr Padel System</div>
+      <div class="card-soft">
+        <div class="card-header">
+          <div class="card-title">📌 Ближайшие сроки годности</div>
+        </div>
+        <div id="expire-block" class="expire-block">
+          <!-- сюда подставим продукты с горящими сроками -->
         </div>
       </div>
-    </div>
+    </section>
+
+    <section id="view-recipes" class="view">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📖 Рецепты</div>
+          <span class="pill">Первые 3 для MVP</span>
+        </div>
+        <p class="secondary-text" style="margin-top:-4px;margin-bottom:6px;">
+          Рецепты по мотивам блюд с RussianFood, но в своём кратком формате.
+        </p>
+        <ul id="recipes-list" class="recipes-list"></ul>
+      </div>
+    </section>
+
+    <section id="view-fridge" class="view">
+      <div class="card-soft">
+        <div class="fridge-header">
+          <div class="card-title">🧊 Холодильник</div>
+          <span class="small-label">Продукты храним локально в браузере (localStorage)</span>
+        </div>
+        <ul id="fridge-list" class="fridge-list" style="margin-top:8px;"></ul>
+
+        <form id="fridge-form" class="fridge-form">
+          <input id="fridge-name" type="text" placeholder="Продукт (например, куриная грудка)" required />
+          <input id="fridge-amount" type="number" min="0" step="1" placeholder="Кол-во" required />
+          <select id="fridge-unit">
+            <option value="g">г</option>
+            <option value="ml">мл</option>
+            <option value="pcs">шт</option>
+          </select>
+          <input id="fridge-expire" type="date" />
+          <button type="submit" class="btn-small">+ Добавить</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Правая колонка: маленький инфо-блок -->
+    <section class="view active" id="view-side">
+      <div class="card-soft">
+        <div class="card-header">
+          <div class="card-title">ℹ️ Как этим пользоваться</div>
+        </div>
+        <ul style="margin:0;padding-left:18px;font-size:12px;color:var(--text-muted);display:flex;flex-direction:column;gap:4px;">
+          <li>Заполни <b>Холодильник</b> продуктами и сроками.</li>
+          <li>Перейди на вкладку <b>«Главная»</b> и нажми «Что приготовить сейчас».</li>
+          <li>Смотри, какие рецепты доступны полностью и где нужно докупить пару вещей.</li>
+          <li>После готовки нажимай <b>«Я приготовил»</b>, чтобы списать продукты.</li>
+        </ul>
+        <div style="margin-top:8px;" class="chips-row">
+          <span class="chip-muted">v0 — только фронт</span>
+          <span class="chip-muted">LocalStorage</span>
+          <span class="chip-muted">Можно расширять рецептами</span>
+        </div>
+        <div style="margin-top:10px;" class="secondary-text">
+          Источники рецептов ты сможешь хранить как ссылку — например,
+          <a class="link" href="https://www.russianfood.com" target="_blank" rel="noreferrer">RussianFood</a>,
+          но текст шагов в приложении будет своим.
+        </div>
+      </div>
+    </section>
   </main>
+</div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const STORAGE_KEY = "kondr_score_selects_v1";
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+<script>
+  // ---------- ДАННЫЕ РЕЦЕПТОВ (упрощённые, на 1 порцию) ----------
+  const recipes = [
+    {
+      id: "stew_potato_meat_mushroom_sourcream",
+      title: "Тушёная картошка с мясом и грибами в сметане",
+      portions: 1,
+      timeMinutes: 40,
+      difficulty: "medium",
+      sourceUrl: "https://www.russianfood.com/recipes/recipe.php?rid=165787",
+      tags: ["картофель", "мясо", "грибы"],
+      ingredients: [
+        { name: "мясо (свинина или говядина)", amount: 150, unit: "g" },
+        { name: "картофель", amount: 250, unit: "g" },
+        { name: "шампиньоны", amount: 90, unit: "g" },
+        { name: "лук репчатый", amount: 40, unit: "g" },
+        { name: "сметана 20%", amount: 40, unit: "g" },
+        { name: "растительное масло", amount: 10, unit: "g" },
+        { name: "вода", amount: 180, unit: "ml" },
+        { name: "соль", amount: null, unit: "to_taste" },
+        { name: "перец чёрный молотый", amount: null, unit: "to_taste" }
+      ],
+      steps: [
+        "Подготовь продукты: мясо нарежь кубиками, картофель — крупными кусками, лук — мелким кубиком, грибы — пластинками.",
+        "Разогрей масло в глубокой сковороде или сотейнике. Обжарь мясо до лёгкой румяности, посоли и поперчи.",
+        "Добавь лук, жарь до мягкости. Затем добавь грибы и жарь, пока они не уменьшатся в объёме и лишняя жидкость не выпарится.",
+        "Положи картофель, перемешай. Влей воду так, чтобы она почти закрывала содержимое. Доведи до кипения, убавь огонь и туши под крышкой 20–25 минут до мягкости мяса и картофеля.",
+        "Добавь сметану, аккуратно перемешай, приправь по вкусу. Потуши ещё 3–5 минут на слабом огне.",
+        "Сними с огня, дай постоять под крышкой пару минут и подавай."
+      ]
+    },
+    {
+      id: "pasta_meat_tomato_sauce_pan",
+      title: "Макароны с мясом в томатном соусе (на сковороде)",
+      portions: 1,
+      timeMinutes: 30,
+      difficulty: "easy",
+      sourceUrl: "https://www.russianfood.com/recipes/recipe.php?rid=164739",
+      tags: ["макароны", "мясо", "томат"],
+      ingredients: [
+        { name: "мясо (свинина или говядина)", amount: 130, unit: "g" },
+        { name: "макароны (сухие)", amount: 80, unit: "g" },
+        { name: "лук репчатый", amount: 35, unit: "g" },
+        { name: "морковь", amount: 35, unit: "g" },
+        { name: "томатный сок/пюре", amount: 100, unit: "ml" },
+        { name: "растительное масло", amount: 10, unit: "g" },
+        { name: "соль", amount: null, unit: "to_taste" },
+        { name: "перец чёрный молотый", amount: null, unit: "to_taste" },
+        { name: "паприка/сушёный чеснок", amount: null, unit: "to_taste" }
+      ],
+      steps: [
+        "Отвари макароны в подсоленной воде до состояния аль денте, слей воду.",
+        "Лук нарежь мелким кубиком, морковь — мелкой соломкой или натри на крупной тёрке. Мясо нарежь небольшими кусочками.",
+        "Разогрей масло в сковороде, обжарь мясо до румяности, посоли и поперчи.",
+        "Добавь лук, жарь пару минут до мягкости, затем добавь морковь и обжаривай ещё несколько минут.",
+        "Влей томатный сок или пюре, приправь специями, при необходимости добавь немного воды. Туши на среднем огне 5–7 минут.",
+        "Добавь к соусу отваренные макароны, хорошо перемешай и прогрей ещё 1–2 минуты, чтобы макароны пропитались соусом."
+      ]
+    },
+    {
+      id: "egg_pockets_ham_cheese",
+      title: "Яичные конвертики с сыром и ветчиной",
+      portions: 1,
+      timeMinutes: 20,
+      difficulty: "easy",
+      sourceUrl: "https://www.russianfood.com/recipes/recipe.php?rid=154015",
+      tags: ["яйца", "сыр", "ветчина"],
+      ingredients: [
+        { name: "яйца", amount: 2, unit: "pcs" },
+        { name: "ветчина/колбаса варёная", amount: 50, unit: "g" },
+        { name: "сыр твёрдый", amount: 30, unit: "g" },
+        { name: "молоко или вода", amount: 25, unit: "ml" },
+        { name: "растительное масло", amount: 8, unit: "g" },
+        { name: "соль", amount: null, unit: "to_taste" },
+        { name: "перец чёрный молотый", amount: null, unit: "to_taste" }
+      ],
+      steps: [
+        "Ветчину нарежь мелкими кубиками или соломкой, сыр натри на тёрке и смешай с ветчиной.",
+        "В миске взбей яйца с молоком или водой, добавь щепотку соли и перца.",
+        "Разогрей сковороду с небольшим количеством масла. Влей половину яичной смеси, распределяя её тонким слоем по дну.",
+        "Обжарь омлетный слой до схватывания сверху. На середину выложи половину начинки из ветчины и сыра.",
+        "Сложи края омлета к центру, формируя конвертик. Аккуратно переверни и обжарь ещё минуту на слабом огне.",
+        "Повтори со второй половиной яичной массы и начинки, чтобы получился второй конвертик."
+      ]
+    }
+  ];
 
-      function playSound(type) {
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator(); const gainNode = audioCtx.createGain(); osc.connect(gainNode); gainNode.connect(audioCtx.destination);
-        if (type === 'click') { osc.type = 'sine'; osc.frequency.setValueAtTime(800, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime+0.1); gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+0.1); osc.start(); osc.stop(audioCtx.currentTime+0.1); } 
-        else if (type === 'win') { osc.type = 'triangle'; osc.frequency.setValueAtTime(440, audioCtx.currentTime); osc.frequency.linearRampToValueAtTime(880, audioCtx.currentTime+0.1); gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.5); osc.start(); osc.stop(audioCtx.currentTime+0.5); }
+  // ---------- СОСТОЯНИЕ ХОЛОДИЛЬНИКА (LocalStorage) ----------
+  const FRIDGE_KEY = "kishkoblud_fridge_v1";
+
+  function loadFridge() {
+    try {
+      const raw = localStorage.getItem(FRIDGE_KEY);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) return [];
+      return parsed;
+    } catch (e) {
+      console.error("Ошибка загрузки холодильника", e);
+      return [];
+    }
+  }
+
+  function saveFridge(fridge) {
+    localStorage.setItem(FRIDGE_KEY, JSON.stringify(fridge));
+  }
+
+  let fridge = loadFridge();
+
+  // ---------- УТИЛИТЫ ----------
+
+  function normalizeName(name) {
+    return name.trim().toLowerCase();
+  }
+
+  function findFridgeItemByName(fridgeArr, ingredientName) {
+    const target = normalizeName(ingredientName);
+    return fridgeArr.find(item => normalizeName(item.name) === target);
+  }
+
+  // Статус рецепта относительно холодильника
+  function getRecipeMatchStatus(recipe, fridgeArr) {
+    const missing = [];
+    const lacking = [];
+
+    recipe.ingredients.forEach(ing => {
+      if (ing.amount === null || ing.unit === "to_taste") {
+        return; // соль/перец и т.п. не учитываем
       }
-      function vibrate(pattern = 10) { if (navigator.vibrate) navigator.vibrate(pattern); }
-
-      const teams = { A: { name: "А&О", code: "A" }, B: { name: "Р&П", code: "B" }, C: { name: "Н&М", code: "C" }, D: { name: "С&К", code: "D" } };
-      const groupSchedule = [ { id: 1, time: "17:10", t1: "A", t2: "B", court: 1 }, { id: 2, time: "17:10", t1: "C", t2: "D", court: 2 }, { id: 3, time: "17:35", t1: "A", t2: "C", court: 1 }, { id: 4, time: "17:35", t1: "B", t2: "D", court: 2 }, { id: 5, time: "18:00", t1: "A", t2: "D", court: 1 }, { id: 6, time: "18:00", t1: "B", t2: "C", court: 2 } ];
-
-      let matchData = {}; let championConfetti = false;
-
-      function init() { loadState(); renderGroupMatches(); recalc(); }
-      function loadState() { try { const r = localStorage.getItem(STORAGE_KEY); const p = r ? JSON.parse(r) : {}; matchData = p.data || {}; championConfetti = p.confetti || false; } catch (e) { matchData = {}; } }
-      function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify({ data: matchData, confetti: championConfetti })); }
-
-      // --- NEW: GENERATE SCORE OPTIONS 0-50 ---
-      function getScoreOptions(selectedVal) {
-          let opts = '<option value="">-</option>';
-          for (let i = 0; i <= 50; i++) {
-              opts += `<option value="${i}" ${String(selectedVal) === String(i) ? 'selected' : ''}>${i}</option>`;
-          }
-          return opts;
-      }
-
-      function renderGroupMatches() {
-        const c = document.getElementById('matches-container'); c.innerHTML = '';
-        groupSchedule.forEach(m => renderMatchItem(c, m, false));
-      }
-
-      function renderMatchItem(container, match, isFinal) {
-          const data = matchData[match.id] || { score: '', winner: null };
-          const scores = parseScoreObj(data.score); // {t1: val, t2: val}
-
-          const t1 = isFinal ? match.t1Obj : teams[match.t1];
-          const t2 = isFinal ? match.t2Obj : teams[match.t2];
-          const t1Code = isFinal ? t1.code : match.t1;
-          const t2Code = isFinal ? t2.code : match.t2;
-
-          const getBtnClass = (code) => {
-            const base = "flex-1 h-12 rounded-lg font-bold text-xs sm:text-sm tap-effect transition-all border flex items-center justify-center relative overflow-hidden ";
-            if (data.winner === code) return base + "bg-neon-blue/20 text-white border-neon-blue shadow-[0_0_15px_rgba(59,130,246,0.5)] ring-1 ring-neon-blue"; 
-            if (data.winner && data.winner !== code) return base + "bg-black/20 text-gray-600 border-transparent"; 
-            return base + "bg-white/5 text-gray-400 border-white/5 hover:bg-white/10"; 
-          };
-
-          const el = document.createElement('div');
-          el.className = isFinal ? (match.type === 'gold' ? "glass-gold p-4 rounded-xl flex flex-col gap-3" : "glass-bronze p-4 rounded-xl flex flex-col gap-3") : "glass-panel p-3 rounded-xl flex flex-col gap-3";
-          let badge = isFinal ? (match.type === 'gold' ? '🏆 ФИНАЛ' : '🥉 3-Е МЕСТО') : `Match ${match.id}`;
-          let badgeClass = isFinal ? (match.type === 'gold' ? 'bg-yellow-500 text-black' : 'bg-orange-500 text-black') : 'bg-white/5 text-gray-400 border border-white/5';
-
-          el.innerHTML = `
-            <div class="flex justify-between items-center px-1">
-               <div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono ${badgeClass}">${badge}</span><span class="text-[10px] font-bold text-gray-500">${match.time}</span></div>
-               ${!isFinal ? `<span class="text-[10px] font-bold text-black bg-white/80 px-2 py-0.5 rounded shadow-lg">Court ${match.court}</span>` : ''}
-            </div>
-            <div class="flex items-center gap-2">
-              <button class="${getBtnClass(t1Code)}" onclick="toggleWinner(${match.id}, '${t1Code}')">${t1.name}</button>
-              
-              <!-- NEW SELECT INPUTS -->
-              <div class="flex items-center gap-1">
-                  <select class="score-select w-12 h-10" onchange="updateScorePart(${match.id}, 't1', this.value)">
-                     ${getScoreOptions(scores.t1)}
-                  </select>
-                  <span class="text-gray-500 font-bold text-lg">:</span>
-                  <select class="score-select w-12 h-10" onchange="updateScorePart(${match.id}, 't2', this.value)">
-                     ${getScoreOptions(scores.t2)}
-                  </select>
-              </div>
-
-              <button class="${getBtnClass(t2Code)}" onclick="toggleWinner(${match.id}, '${t2Code}')">${t2.name}</button>
-            </div>
-          `;
-          container.appendChild(el);
-      }
-
-      // --- NEW SCORE LOGIC ---
-      function parseScoreObj(str) {
-          if (!str) return { t1: '', t2: '' };
-          const m = str.match(/^(\d+)[\-:](\d+)$/);
-          return m ? { t1: m[1], t2: m[2] } : { t1: '', t2: '' };
-      }
-
-      window.updateScorePart = function(id, part, val) {
-          if (!matchData[id]) matchData[id] = { winner: null };
-          const current = parseScoreObj(matchData[id].score);
-          if (part === 't1') current.t1 = val;
-          if (part === 't2') current.t2 = val;
-          
-          // Save only if both or partial? Just save what we have.
-          // Format: "X-Y" or just "" if incomplete? Let's save anyway.
-          const s1 = current.t1 !== '' ? current.t1 : '0';
-          const s2 = current.t2 !== '' ? current.t2 : '0';
-          
-          if (current.t1 === '' && current.t2 === '') matchData[id].score = '';
-          else matchData[id].score = `${s1}-${s2}`;
-          
-          saveState();
-          if (id <= 6) recalc(); 
-      }
-
-      window.toggleWinner = function(id, teamCode) {
-        vibrate(15); playSound('click');
-        if (!matchData[id]) matchData[id] = { score: '', winner: null };
-        if (matchData[id].winner === teamCode) matchData[id].winner = null; else matchData[id].winner = teamCode;
-        if (id === 7) championConfetti = false;
-        saveState();
-        if (id <= 6) recalc(); else { renderFinals(window.lastRankedList); checkChampion(); }
-      }
-
-      function getParsedScore(str) {
-        if (!str) return null;
-        const m = str.match(/^(\d+)[\-:](\d+)$/);
-        return m ? { a: +m[1], b: +m[2] } : null;
-      }
-
-      function recalc() {
-        const stats = {}; Object.keys(teams).forEach(k => stats[k] = { code: k, name: teams[k].name, p: 0, w: 0, l: 0, gf: 0, ga: 0, pts: 0 });
-        let playedCount = 0;
-        groupSchedule.forEach(m => {
-          const d = matchData[m.id];
-          if (!d || !d.winner) return;
-          playedCount++;
-          const w = d.winner; const l = m.t1 === w ? m.t2 : m.t1;
-          stats[w].p++; stats[w].w++; stats[w].pts += 2; stats[l].p++; stats[l].l++;
-          const s = getParsedScore(d.score);
-          if (s) { stats[m.t1].gf += s.a; stats[m.t1].ga += s.b; stats[m.t2].gf += s.b; stats[m.t2].ga += s.a; }
+      const item = findFridgeItemByName(fridgeArr, ing.name);
+      if (!item) {
+        missing.push(ing);
+      } else if (typeof item.amount === "number" && item.amount < ing.amount) {
+        lacking.push({
+          ingredient: ing,
+          have: item.amount,
+          need: ing.amount - item.amount
         });
-
-        const list = Object.values(stats).map(t => ({...t, diff: t.gf - t.ga}));
-        list.sort((a,b) => (b.pts - a.pts) || (b.diff - a.diff) || (b.gf - a.gf));
-        window.lastRankedList = list;
-
-        const tbody = document.getElementById('standings-body'); tbody.innerHTML = '';
-        list.forEach((t, i) => {
-          const diff = t.p > 0 ? (t.diff > 0 ? `+${t.diff}` : t.diff) : '-';
-          const isLeader = (i === 0 && t.p > 0);
-          const tr = document.createElement('tr');
-          tr.className = isLeader ? "bg-gradient-to-r from-neon-blue/20 to-transparent font-bold" : "hover:bg-white/5 transition-colors";
-          tr.innerHTML = `<td class="px-2 py-3 text-center text-gray-500 text-[10px] font-mono">${i+1}</td><td class="px-2 py-3 font-medium text-xs sm:text-sm ${isLeader ? 'text-white' : 'text-gray-400'}">${t.name}</td><td class="px-1 py-3 text-center text-xs text-gray-600 font-mono">${t.p||'0'}</td><td class="px-1 py-3 text-center text-xs text-green-400 font-mono">${t.w||'0'}</td><td class="px-1 py-3 text-center text-xs text-gray-500 font-mono">${diff}</td><td class="px-3 py-3 text-center font-black text-sm ${isLeader ? 'text-neon-blue' : 'text-gray-300'}">${t.pts}</td>`;
-          tbody.appendChild(tr);
-        });
-        
-        renderGroupMatches();
-        const playoffsSection = document.getElementById('playoffs-section');
-        const statusBox = document.getElementById('status-box');
-        if (playedCount === 6) {
-            playoffsSection.classList.remove('hidden'); playoffsSection.classList.add('flex');
-            renderFinals(list); checkChampion();
-        } else {
-            playoffsSection.classList.add('hidden'); playoffsSection.classList.remove('flex');
-            if (playedCount > 0) { statusBox.className = "p-4 rounded-xl border border-neon-blue/30 bg-neon-blue/5 text-neon-blue shadow-soft"; statusBox.innerHTML = `<div class="text-[10px] text-neon-blue/70 font-bold uppercase tracking-widest mb-1">Лидер группы</div><div class="text-xl font-black text-white">${list[0].name}</div>`; }
-            else { statusBox.className = "p-4 rounded-xl border border-white/5 bg-white/5 text-gray-500 shadow-soft"; statusBox.innerHTML = "Сыграйте группу (6 матчей)"; }
-        }
       }
+    });
 
-      function renderFinals(rankedList) {
-          const c = document.getElementById('finals-container'); c.innerHTML = '';
-          renderMatchItem(c, { id: 7, time: "18:30", type: 'gold', t1Obj: rankedList[0], t2Obj: rankedList[1] }, true);
-          renderMatchItem(c, { id: 8, time: "18:30", type: 'bronze', t1Obj: rankedList[2], t2Obj: rankedList[3] }, true);
+    let status = "full";
+    if (missing.length || lacking.length) {
+      const totalRelevant = recipe.ingredients.filter(
+        ing => ing.amount !== null && ing.unit !== "to_taste"
+      ).length;
+      if (missing.length + lacking.length === totalRelevant) {
+        status = "none";
+      } else {
+        status = "partial";
       }
+    }
 
-      function checkChampion() {
-          const f = matchData[7]; const b = matchData[8];
-          const sb = document.getElementById('status-box');
-          let h = ''; let c = "p-4 rounded-xl border border-white/5 bg-white/5 text-gray-500 shadow-soft";
-          
-          if (b && b.winner && (!f || !f.winner)) {
-              const w = teams[b.winner].name;
-              c = "p-4 rounded-xl border border-orange-500/30 bg-orange-500/10 text-orange-200 shadow-soft";
-              h = `<div class="text-[10px] font-bold uppercase tracking-widest mb-1 text-orange-400">Бронзовый призер</div><div class="text-xl font-bold text-white">🥉 ${w}</div>`;
-          }
-          if (f && f.winner) {
-             // FIX: LOOKUP NAME FROM RENDERED LIST, NOT STATIC TEAMS DIRECTLY BY ID, OR USE CODE
-             // Actually winner is stored as CODE 'A', 'B', etc.
-             const wCode = f.winner;
-             const wName = teams[wCode].name;
-             c = "p-5 rounded-xl border border-yellow-500/50 bg-gradient-to-br from-yellow-900/40 to-black text-yellow-100 shadow-[0_0_30px_rgba(234,179,8,0.2)] relative overflow-hidden";
-             h = `<div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-yellow-500 rounded-full opacity-20 blur-2xl animate-pulse-slow"></div><div class="text-[10px] uppercase font-black text-yellow-500 mb-2 tracking-[0.2em]">Победитель турнира</div><div class="text-2xl font-black text-white drop-shadow-lg animate-bounce-slow">👑 ${wName}</div>`;
-             if (!championConfetti) { playSound('win'); vibrate([100, 50, 100, 50, 500]); launchConfetti(); championConfetti = true; saveState(); }
-          }
-          if (!h) { h = `<div class="text-[10px] font-bold uppercase tracking-widest mb-1">Группа завершена</div><div class="font-bold">Играем финалы!</div>`; c = "p-4 rounded-xl border border-yellow-500/30 bg-yellow-500/10 text-yellow-200 shadow-soft"; }
-          sb.className = c; sb.innerHTML = h;
-      }
-      function getSilverName() {
-          const m7 = matchData[7]; if (!m7 || !m7.winner) return "TBD";
-          const w = m7.winner; const p1 = window.lastRankedList[0].code; const p2 = window.lastRankedList[1].code;
-          return w === p1 ? teams[p2].name : teams[p1].name;
-      }
-      function launchConfetti() {
-        var d = 4000; var e = Date.now() + d; var def = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-        function r(min, max) { return Math.random() * (max - min) + min; }
-        var i = setInterval(function() {
-          var t = e - Date.now(); if (t <= 0) return clearInterval(i);
-          var p = 50 * (t / d); confetti(Object.assign({}, def, { particleCount: p, origin: { x: r(0.1, 0.3), y: Math.random() - 0.2 } }));
-          confetti(Object.assign({}, def, { particleCount: p, origin: { x: r(0.7, 0.9), y: Math.random() - 0.2 } }));
-        }, 250);
-      }
+    return { status, missing, lacking };
+  }
 
-      // MODAL & SHARE
-      document.getElementById('rules-btn').addEventListener('click', () => document.getElementById('rules-modal').classList.remove('hidden'));
-      document.getElementById('close-rules').addEventListener('click', () => document.getElementById('rules-modal').classList.add('hidden'));
-      document.getElementById('rules-ok').addEventListener('click', () => document.getElementById('rules-modal').classList.add('hidden'));
-      document.getElementById('reset-btn-trigger').addEventListener('click', () => document.getElementById('reset-modal').classList.remove('hidden'));
-      document.getElementById('modal-cancel').addEventListener('click', () => document.getElementById('reset-modal').classList.add('hidden'));
-      document.getElementById('modal-confirm').addEventListener('click', () => { localStorage.removeItem(STORAGE_KEY); matchData = {}; championConfetti = false; init(); document.getElementById('reset-modal').classList.add('hidden'); });
-      document.getElementById('close-photo-modal').addEventListener('click', () => { document.getElementById('photo-modal').classList.add('hidden'); document.getElementById('photo-container').innerHTML = ''; });
-      function showToast(msg) { const t = document.getElementById('toast'); document.getElementById('toast-msg').textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
+  function formatUnit(unit) {
+    if (unit === "g") return "г";
+    if (unit === "ml") return "мл";
+    if (unit === "pcs") return "шт";
+    if (unit === "to_taste") return "по вкусу";
+    return unit;
+  }
 
-      document.getElementById('share-btn').addEventListener('click', async () => {
-        const l = document.getElementById('screenshot-loader'); const t = document.getElementById('capture-target'); const h = document.getElementById('screenshot-header'); const f = document.getElementById('screenshot-footer'); const p = document.getElementById('screenshot-podium');
-        l.classList.remove('hidden'); h.classList.remove('hidden'); f.classList.remove('hidden');
-        if (matchData[7] && matchData[7].winner && matchData[8] && matchData[8].winner) {
-            p.classList.remove('hidden'); p.classList.add('flex');
-            document.getElementById('podium-gold').textContent = teams[matchData[7].winner].name;
-            document.getElementById('podium-silver').textContent = getSilverName();
-            document.getElementById('podium-bronze').textContent = teams[matchData[8].winner].name;
-        }
-        try {
-            await new Promise(resolve => setTimeout(resolve, 200));
-            const c = await html2canvas(t, { scale: 3, backgroundColor: '#0f172a', useCORS: true, logging: false });
-            c.toBlob(async (blob) => {
-                if (!blob) { showImageInModal(c); return; }
-                const file = new File([blob], 'kondr-results.png', { type: 'image/png' });
-                if (navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], title: 'Kondr Padel' }); showToast("Меню Share открыто"); } catch (e) { if (e.name !== 'AbortError') showImageInModal(c); } } else { showImageInModal(c); }
-                cleanup();
-            }, 'image/png');
-        } catch (err) { showToast("Ошибка фото"); cleanup(); }
-        function showImageInModal(cvs) { const img = new Image(); img.src = cvs.toDataURL(); img.className = "w-full h-auto block"; document.getElementById('photo-container').innerHTML = ''; document.getElementById('photo-container').appendChild(img); document.getElementById('photo-modal').classList.remove('hidden'); cleanup(); }
-        function cleanup() { l.classList.add('hidden'); h.classList.add('hidden'); f.classList.add('hidden'); p.classList.add('hidden'); p.classList.remove('flex'); }
+  function formatDateForHuman(dateStr) {
+    if (!dateStr) return "без даты";
+    const d = new Date(dateStr);
+    if (Number.isNaN(d.getTime())) return "некорректная дата";
+    return d.toLocaleDateString("ru-RU", { day: "2-digit", month: "2-digit" });
+  }
+
+  function daysDiffFromToday(dateStr) {
+    if (!dateStr) return null;
+    const d = new Date(dateStr);
+    if (Number.isNaN(d.getTime())) return null;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    d.setHours(0, 0, 0, 0);
+    const diffMs = d.getTime() - today.getTime();
+    return Math.round(diffMs / (1000 * 60 * 60 * 24));
+  }
+
+  // ---------- РЕНДЕРИНГ ----------
+
+  const viewsMap = {
+    dashboard: document.getElementById("view-dashboard"),
+    recipes: document.getElementById("view-recipes"),
+    fridge: document.getElementById("view-fridge")
+  };
+
+  const tabButtons = Array.from(document.querySelectorAll(".tab-button"));
+
+  function switchView(viewName) {
+    Object.entries(viewsMap).forEach(([name, el]) => {
+      if (name === viewName) {
+        el.classList.add("active");
+      } else {
+        el.classList.remove("active");
+      }
+    });
+
+    tabButtons.forEach(btn => {
+      if (btn.dataset.view === viewName) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+
+    if (viewName === "dashboard") {
+      renderSuggestions();
+      renderExpireBlock();
+    } else if (viewName === "fridge") {
+      renderFridge();
+    } else if (viewName === "recipes") {
+      renderRecipes(); // на всякий случай можно дергать
+    }
+  }
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      switchView(btn.dataset.view);
+    });
+  });
+
+  // ----- Рендер холодильника -----
+
+  const fridgeListEl = document.getElementById("fridge-list");
+
+  function renderFridge() {
+    fridgeListEl.innerHTML = "";
+    if (!fridge.length) {
+      const empty = document.createElement("div");
+      empty.className = "fridge-empty";
+      empty.textContent = "В холодильнике пусто. Добавь хотя бы пару продуктов — и подбор рецептов оживёт.";
+      fridgeListEl.appendChild(empty);
+      return;
+    }
+
+    // сортируем: сначала с ближайшим сроком
+    const sorted = [...fridge].sort((a, b) => {
+      const da = daysDiffFromToday(a.expiresAt);
+      const db = daysDiffFromToday(b.expiresAt);
+      if (da == null && db == null) return 0;
+      if (da == null) return 1;
+      if (db == null) return -1;
+      return da - db;
+    });
+
+    sorted.forEach(item => {
+      const li = document.createElement("li");
+      li.className = "fridge-list-item";
+
+      const nameDiv = document.createElement("div");
+      nameDiv.className = "fridge-name";
+      nameDiv.textContent = item.name;
+
+      const amountDiv = document.createElement("div");
+      amountDiv.className = "fridge-amount";
+      amountDiv.textContent = `${item.amount ?? "?"} ${formatUnit(item.unit)}`;
+
+      const expireDiv = document.createElement("div");
+      expireDiv.className = "fridge-expire";
+
+      const diff = daysDiffFromToday(item.expiresAt);
+      let cls = "";
+      let text = "";
+      if (diff == null) {
+        cls = "";
+        text = "Срок не указан";
+      } else if (diff < 0) {
+        cls = "expire-danger";
+        text = `Просрочен ${formatDateForHuman(item.expiresAt)}`;
+      } else if (diff === 0) {
+        cls = "expire-danger";
+        text = `Годен до сегодня (${formatDateForHuman(item.expiresAt)})`;
+      } else if (diff <= 3) {
+        cls = "expire-soon";
+        text = `Годен до ${formatDateForHuman(item.expiresAt)} (${diff} дн.)`;
+      } else {
+        cls = "";
+        text = `До ${formatDateForHuman(item.expiresAt)} (${diff} дн.)`;
+      }
+      expireDiv.classList.add(cls);
+      expireDiv.textContent = text;
+
+      const btnDelete = document.createElement("button");
+      btnDelete.className = "btn-icon";
+      btnDelete.innerHTML = "✕";
+      btnDelete.title = "Удалить продукт";
+      btnDelete.addEventListener("click", () => {
+        fridge = fridge.filter(f => !(f.name === item.name && f.expiresAt === item.expiresAt && f.amount === item.amount && f.unit === item.unit));
+        saveFridge(fridge);
+        renderFridge();
+        renderSuggestions();
+        renderExpireBlock();
       });
 
-      init();
+      li.appendChild(nameDiv);
+      li.appendChild(amountDiv);
+      li.appendChild(expireDiv);
+      li.appendChild(btnDelete);
+
+      fridgeListEl.appendChild(li);
     });
-  </script>
+  }
+
+  // ----- Добавление продукта -----
+
+  const fridgeForm = document.getElementById("fridge-form");
+  const fridgeNameInput = document.getElementById("fridge-name");
+  const fridgeAmountInput = document.getElementById("fridge-amount");
+  const fridgeUnitSelect = document.getElementById("fridge-unit");
+  const fridgeExpireInput = document.getElementById("fridge-expire");
+
+  fridgeForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = fridgeNameInput.value.trim();
+    const amount = parseFloat(fridgeAmountInput.value);
+    const unit = fridgeUnitSelect.value;
+    const expiresAt = fridgeExpireInput.value || null;
+
+    if (!name || Number.isNaN(amount)) {
+      return;
+    }
+
+    fridge.push({ name, amount, unit, expiresAt });
+    saveFridge(fridge);
+    fridgeNameInput.value = "";
+    fridgeAmountInput.value = "";
+    fridgeExpireInput.value = "";
+
+    renderFridge();
+    renderSuggestions();
+    renderExpireBlock();
+  });
+
+  // ----- Рендер рецептов -----
+
+  const recipesListEl = document.getElementById("recipes-list");
+
+  function renderRecipes() {
+    recipesListEl.innerHTML = "";
+    recipes.forEach(recipe => {
+      const { status, missing, lacking } = getRecipeMatchStatus(recipe, fridge);
+
+      const li = document.createElement("li");
+      li.className = "recipe-card";
+
+      // header
+      const headerRow = document.createElement("div");
+      headerRow.className = "recipe-header-row";
+
+      const titleDiv = document.createElement("div");
+      titleDiv.className = "recipe-title";
+      titleDiv.textContent = recipe.title;
+
+      const metaDiv = document.createElement("div");
+      metaDiv.className = "recipe-meta";
+      const timeSpan = document.createElement("span");
+      timeSpan.textContent = `⏱ ${recipe.timeMinutes} мин`;
+      const diffSpan = document.createElement("span");
+      diffSpan.textContent = recipe.difficulty === "easy" ? "легко" : "средне";
+      metaDiv.appendChild(timeSpan);
+      metaDiv.appendChild(diffSpan);
+
+      headerRow.appendChild(titleDiv);
+      headerRow.appendChild(metaDiv);
+
+      // status chip
+      const statusChip = document.createElement("span");
+      statusChip.className = "status-chip";
+      if (status === "full") {
+        statusChip.classList.add("status-full");
+        statusChip.textContent = "ВСЁ ЕСТЬ";
+      } else if (status === "partial") {
+        statusChip.classList.add("status-partial");
+        statusChip.textContent = "НУЖНО ДОКУПИТЬ";
+      } else {
+        statusChip.classList.add("status-partial");
+        statusChip.textContent = "ПОКА НЕТ ПРОДУКТОВ";
+      }
+
+      // body
+      const bodyDiv = document.createElement("div");
+      bodyDiv.className = "recipe-body";
+
+      const ingSummary = document.createElement("div");
+      ingSummary.textContent = `Ингредиентов: ${recipe.ingredients.length}`;
+      bodyDiv.appendChild(ingSummary);
+
+      if (missing.length || lacking.length) {
+        const chips = document.createElement("div");
+        chips.className = "chips-row";
+        missing.forEach(ing => {
+          const chip = document.createElement("span");
+          chip.className = "chip-muted";
+          chip.textContent = `Нет: ${ing.name}`;
+          chips.appendChild(chip);
+        });
+        lacking.forEach(entry => {
+          const chip = document.createElement("span");
+          chip.className = "chip-muted";
+          chip.textContent = `Мало: ${entry.ingredient.name} (нужно ещё ${entry.need} ${formatUnit(entry.ingredient.unit)})`;
+          chips.appendChild(chip);
+        });
+        bodyDiv.appendChild(chips);
+      }
+
+      // details with steps
+      const detailsEl = document.createElement("details");
+      const summaryEl = document.createElement("summary");
+      summaryEl.textContent = "Показать шаги приготовления";
+      detailsEl.appendChild(summaryEl);
+
+      const stepsOl = document.createElement("ol");
+      stepsOl.className = "steps";
+      recipe.steps.forEach(step => {
+        const liStep = document.createElement("li");
+        liStep.textContent = step;
+        stepsOl.appendChild(liStep);
+      });
+      detailsEl.appendChild(stepsOl);
+      bodyDiv.appendChild(detailsEl);
+
+      // actions
+      const actionsDiv = document.createElement("div");
+      actionsDiv.className = "recipe-actions";
+
+      const leftActions = document.createElement("div");
+      leftActions.appendChild(statusChip);
+
+      const rightActions = document.createElement("div");
+      rightActions.style.display = "flex";
+      rightActions.style.gap = "6px";
+
+      const cookBtn = document.createElement("button");
+      cookBtn.className = "btn-ghost";
+      cookBtn.textContent = "Я приготовил";
+      cookBtn.addEventListener("click", () => {
+        cookRecipe(recipe.id);
+      });
+
+      rightActions.appendChild(cookBtn);
+
+      if (recipe.sourceUrl) {
+        const linkBtn = document.createElement("a");
+        linkBtn.href = recipe.sourceUrl;
+        linkBtn.target = "_blank";
+        linkBtn.rel = "noreferrer";
+        linkBtn.className = "btn-ghost";
+        linkBtn.textContent = "Оригинал на сайте";
+        rightActions.appendChild(linkBtn);
+      }
+
+      actionsDiv.appendChild(leftActions);
+      actionsDiv.appendChild(rightActions);
+
+      li.appendChild(headerRow);
+      li.appendChild(bodyDiv);
+      li.appendChild(actionsDiv);
+
+      recipesListEl.appendChild(li);
+    });
+  }
+
+  // ----- Подбор рецептов на главной -----
+
+  const suggestedListEl = document.getElementById("suggested-list");
+
+  function renderSuggestions() {
+    suggestedListEl.innerHTML = "";
+
+    if (!recipes.length) {
+      const empty = document.createElement("div");
+      empty.className = "suggest-empty";
+      empty.textContent = "Рецептов пока нет. Добавь хотя бы один рецепт в коде.";
+      suggestedListEl.appendChild(empty);
+      return;
+    }
+
+    if (!fridge.length) {
+      const empty = document.createElement("div");
+      empty.className = "suggest-empty";
+      empty.textContent = "Холодильник пуст. Заполни продукты, чтобы я мог что-то предложить.";
+      suggestedListEl.appendChild(empty);
+      return;
+    }
+
+    const statuses = recipes.map(r => ({
+      recipe: r,
+      match: getRecipeMatchStatus(r, fridge)
+    }));
+
+    const full = statuses.filter(x => x.match.status === "full");
+    const partial = statuses.filter(x => x.match.status === "partial");
+
+    if (!full.length && !partial.length) {
+      const empty = document.createElement("div");
+      empty.className = "suggest-empty";
+      empty.textContent = "С тем, что сейчас есть в холодильнике, ни один рецепт не собирается. Попробуй что-то докупить.";
+      suggestedListEl.appendChild(empty);
+      return;
+    }
+
+    const addSectionTitle = (text) => {
+      const title = document.createElement("div");
+      title.style.fontSize = "13px";
+      title.style.marginBottom = "4px";
+      title.style.marginTop = "4px";
+      title.style.color = "var(--text-muted)";
+      title.textContent = text;
+      suggestedListEl.appendChild(title);
+    };
+
+    if (full.length) {
+      addSectionTitle("✅ Можно приготовить прямо сейчас:");
+      full.forEach(item => {
+        const li = document.createElement("li");
+        li.className = "recipe-card";
+
+        const headerRow = document.createElement("div");
+        headerRow.className = "recipe-header-row";
+
+        const titleDiv = document.createElement("div");
+        titleDiv.className = "recipe-title";
+        titleDiv.textContent = item.recipe.title;
+
+        const metaDiv = document.createElement("div");
+        metaDiv.className = "recipe-meta";
+        const timeSpan = document.createElement("span");
+        timeSpan.textContent = `⏱ ${item.recipe.timeMinutes} мин`;
+        metaDiv.appendChild(timeSpan);
+
+        headerRow.appendChild(titleDiv);
+        headerRow.appendChild(metaDiv);
+
+        const bodyDiv = document.createElement("div");
+        bodyDiv.className = "recipe-body";
+        bodyDiv.textContent = "Все основные ингредиенты уже есть в холодильнике.";
+
+        const actions = document.createElement("div");
+        actions.className = "recipe-actions";
+
+        const statusChip = document.createElement("span");
+        statusChip.className = "status-chip status-full";
+        statusChip.textContent = "ВСЁ ЕСТЬ";
+
+        const btn = document.createElement("button");
+        btn.className = "btn-ghost";
+        btn.textContent = "Открыть рецепт";
+        btn.addEventListener("click", () => {
+          switchView("recipes");
+          // просто пролистаем к списку рецептов
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        actions.appendChild(statusChip);
+        actions.appendChild(btn);
+
+        li.appendChild(headerRow);
+        li.appendChild(bodyDiv);
+        li.appendChild(actions);
+
+        suggestedListEl.appendChild(li);
+      });
+    }
+
+    if (partial.length) {
+      addSectionTitle("🟡 Можно почти приготовить — нужно чуть-чуть докупить:");
+      partial.forEach(item => {
+        const li = document.createElement("li");
+        li.className = "recipe-card";
+
+        const headerRow = document.createElement("div");
+        headerRow.className = "recipe-header-row";
+
+        const titleDiv = document.createElement("div");
+        titleDiv.className = "recipe-title";
+        titleDiv.textContent = item.recipe.title;
+
+        const metaDiv = document.createElement("div");
+        metaDiv.className = "recipe-meta";
+        const timeSpan = document.createElement("span");
+        timeSpan.textContent = `⏱ ${item.recipe.timeMinutes} мин`;
+        metaDiv.appendChild(timeSpan);
+
+        headerRow.appendChild(titleDiv);
+        headerRow.appendChild(metaDiv);
+
+        const bodyDiv = document.createElement("div");
+        bodyDiv.className = "recipe-body";
+
+        const chips = document.createElement("div");
+        chips.className = "chips-row";
+        item.match.missing.forEach(ing => {
+          const chip = document.createElement("span");
+          chip.className = "chip-muted";
+          chip.textContent = `Нет: ${ing.name}`;
+          chips.appendChild(chip);
+        });
+        item.match.lacking.forEach(entry => {
+          const chip = document.createElement("span");
+          chip.className = "chip-muted";
+          chip.textContent = `Мало: ${entry.ingredient.name}`;
+          chips.appendChild(chip);
+        });
+        bodyDiv.appendChild(chips);
+
+        const actions = document.createElement("div");
+        actions.className = "recipe-actions";
+
+        const statusChip = document.createElement("span");
+        statusChip.className = "status-chip status-partial";
+        statusChip.textContent = "НУЖНО ДОКУПИТЬ";
+
+        const btn = document.createElement("button");
+        btn.className = "btn-ghost";
+        btn.textContent = "Список покупок";
+        btn.addEventListener("click", () => {
+          const lines = [];
+          item.match.missing.forEach(ing => {
+            lines.push(`- ${ing.name}: ${ing.amount ?? ""} ${formatUnit(ing.unit)}`);
+          });
+          item.match.lacking.forEach(entry => {
+            lines.push(`- ${entry.ingredient.name}: докупить ${entry.need} ${formatUnit(entry.ingredient.unit)}`);
+          });
+          alert("Что докупить:\n\n" + (lines.join("\n") || "Нечего докупать"));
+        });
+
+        actions.appendChild(statusChip);
+        actions.appendChild(btn);
+
+        li.appendChild(headerRow);
+        li.appendChild(bodyDiv);
+        li.appendChild(actions);
+
+        suggestedListEl.appendChild(li);
+      });
+    }
+  }
+
+  // ----- Сроки годности на главной -----
+
+  const expireBlockEl = document.getElementById("expire-block");
+
+  function renderExpireBlock() {
+    expireBlockEl.innerHTML = "";
+    if (!fridge.length) {
+      const text = document.createElement("div");
+      text.className = "secondary-text";
+      text.textContent = "Пока нет ни одного продукта — нечему портиться 🙂";
+      expireBlockEl.appendChild(text);
+      return;
+    }
+
+    const withDates = fridge
+      .map(item => ({ item, diff: daysDiffFromToday(item.expiresAt) }))
+      .filter(x => x.diff !== null)
+      .sort((a, b) => a.diff - b.diff);
+
+    const soon = withDates.filter(x => x.diff <= 3);
+    if (!soon.length) {
+      const text = document.createElement("div");
+      text.className = "secondary-text";
+      text.textContent = "Ни у одного продукта не горит срок в ближайшие 3 дня.";
+      expireBlockEl.appendChild(text);
+      return;
+    }
+
+    soon.slice(0, 5).forEach(x => {
+      const tag = document.createElement("div");
+      tag.className = "expire-tag";
+      const dot = document.createElement("span");
+      dot.className = "dot";
+      const label = document.createElement("span");
+      const prefix = x.diff < 0
+        ? "Просрочено:"
+        : x.diff === 0
+        ? "Сегодня последний день:"
+        : x.diff === 1
+        ? "Завтра истекает:"
+        : "Скоро истечёт:";
+      label.textContent = `${prefix} ${x.item.name} (${formatDateForHuman(x.item.expiresAt)})`;
+      tag.appendChild(dot);
+      tag.appendChild(label);
+      expireBlockEl.appendChild(tag);
+    });
+
+    if (withDates.length > 5) {
+      const more = document.createElement("div");
+      more.className = "secondary-text";
+      more.textContent = `Ещё ${withDates.length - 5} позиций с датой — смотри во вкладке «Холодильник».`;
+      expireBlockEl.appendChild(more);
+    }
+  }
+
+  // ----- Списание продуктов при готовке -----
+
+  function cookRecipe(recipeId) {
+    const recipe = recipes.find(r => r.id === recipeId);
+    if (!recipe) return;
+    let changed = false;
+
+    recipe.ingredients.forEach(ing => {
+      if (ing.amount === null || ing.unit === "to_taste") return;
+      const item = findFridgeItemByName(fridge, ing.name);
+      if (!item || typeof item.amount !== "number") return;
+      const newAmount = item.amount - ing.amount;
+      if (newAmount <= 0) {
+        fridge = fridge.filter(f => f !== item);
+      } else {
+        item.amount = Math.round(newAmount * 100) / 100;
+      }
+      changed = true;
+    });
+
+    if (changed) {
+      saveFridge(fridge);
+      renderFridge();
+      renderSuggestions();
+      renderRecipes();
+      renderExpireBlock();
+      alert("Продукты для этого рецепта списаны из холодильника (насколько удалось сопоставить по названию).");
+    } else {
+      alert("Не удалось списать продукты — похоже, ничего из ингредиентов не найдено в холодильнике по имени.");
+    }
+  }
+
+  // ----- Кнопка «Что приготовить сейчас» -----
+
+  const btnWhatToCook = document.getElementById("btn-what-to-cook");
+  btnWhatToCook.addEventListener("click", () => {
+    switchView("dashboard");
+    renderSuggestions();
+    renderExpireBlock();
+    // мелкий скролл наверх, если нужно
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  // ----- ИНИЦИАЛИЗАЦИЯ -----
+  renderFridge();
+  renderRecipes();
+  renderSuggestions();
+  renderExpireBlock();
+</script>
 </body>
 </html>
-
